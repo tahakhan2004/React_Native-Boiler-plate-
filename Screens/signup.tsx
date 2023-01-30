@@ -1,5 +1,5 @@
 import React, { useState } from "react"
-import {View , Text , StyleSheet , Image, ImageBackground, TextInput, Button, TouchableOpacity} from "react-native"
+import {View , Text , StyleSheet , Image, ImageBackground, TextInput, Button, TouchableOpacity, Alert} from "react-native"
 // import { create } from "react-test-renderer"
 import icon from "../Asstes/Logo.png"
 import back from "../Asstes/background.jpg"
@@ -11,23 +11,48 @@ import { SocialIcon } from "@rneui/themed"
 import faceb from "../Asstes/fb.png"
 import git from "../Asstes/git.png"
 import acc from "../Asstes/Acc.png"
- 
+import auth from '@react-native-firebase/auth';
+import database from '@react-native-firebase/database';
 // import {SocialIcon} from '@rneui/themed';
 
 function Signup3({navigation}){
+
   const [email, setemail] = useState()
   const [password, setpassword] = useState()
   const [number, setnumber] = useState()
   const [name, setname] = useState()
-  const loginn = ()=>{
-    const obj = {
-      email,
-      password,
-      number,
-      name
-    }
-    console.log(obj);
-    navigation.navigate("Login")
+  const model = {
+    email,
+    password,
+    number,
+    name
+  }
+  // const loginn = ()=>{
+
+  //   console.log(obj);
+  //   navigation.navigate("Login")
+  // }
+  const createTwoButtonAlert = (error) =>
+    Alert.alert('Error', `${error}`, [
+      {text: 'OK', onPress: () => console.log('OK Pressed')},
+    ]);
+
+
+  const SignUpp = ()=>{
+    auth().createUserWithEmailAndPassword(model.email, model.password)
+    .then((res)=>{
+      console.log(res.user.uid);
+      database().ref(`users/${res.user.uid}`).set(model)
+      .then((res)=>{
+       navigation.replace("Login") 
+      }).catch((err)=>{
+        console.log(err.message);
+      })
+      
+    }).catch((err)=>{
+      console.log(err.message); 
+      createTwoButtonAlert(err.message)
+    })
   }
 
   return<>
@@ -58,7 +83,7 @@ function Signup3({navigation}){
   </View>
   <View style={{alignItems:'center', padding:8}}>
     {/* <Button title="Login" style={styles.butn}/> */}
-    <TouchableOpacity style={styles.butn} onPress={loginn}>
+    <TouchableOpacity style={styles.butn} onPress={SignUpp}>
       <Text style={{color:"white", textAlign:"center", fontWeight:"900"}}>Signup</Text>
     </TouchableOpacity>
   </View>

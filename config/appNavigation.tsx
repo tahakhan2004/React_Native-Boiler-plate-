@@ -9,6 +9,9 @@ import Products from '../Screens/products';
 import SingleProducts from '../Screens/SingleProduct';
 import Signup3 from '../Screens/signup';
 import Login3 from '../Screens/Login';
+import DashBrad from '../Screens/DashBorad';
+import Locate from '../Screens/location';
+import Location from '../Screens/location';
 
 // function HomeScreen() {
 //   return (
@@ -24,12 +27,13 @@ function AppNavigation() {
   return (
     <NavigationContainer>
       <Stack.Navigator>
+      <Stack.Screen name="Map" component={Location} />
+      <Stack.Screen name="Login" component={Login3} />
+      <Stack.Screen name="Dashboard" component={DashBrad} />
       <Stack.Screen name="Signup" component={Signup3} />
         <Stack.Screen name="Home" component={Home} />
         <Stack.Screen name="Products" component={Products}/>
         <Stack.Screen name="ProductDetail" component={SingleProducts} />
-        <Stack.Screen name="Login" component={Login3} />
-
       </Stack.Navigator>
     </NavigationContainer>
   );

@@ -15,4 +15,4 @@ const SingleProducts = ({navigation, route}) => {
   )
 }
 
-export default SingleProducts
+export default SingleProducts 
