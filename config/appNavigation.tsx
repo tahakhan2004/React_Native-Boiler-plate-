@@ -27,12 +27,13 @@ function AppNavigation() {
   return (
     <NavigationContainer>
       <Stack.Navigator>
+      <Stack.Screen name="Products" component={Products}/>
+
       <Stack.Screen name="Map" component={Location} />
       <Stack.Screen name="Login" component={Login3} />
       <Stack.Screen name="Dashboard" component={DashBrad} />
       <Stack.Screen name="Signup" component={Signup3} />
         <Stack.Screen name="Home" component={Home} />
-        <Stack.Screen name="Products" component={Products}/>
         <Stack.Screen name="ProductDetail" component={SingleProducts} />
       </Stack.Navigator>
     </NavigationContainer>
